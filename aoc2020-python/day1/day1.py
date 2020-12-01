@@ -1,12 +1,11 @@
 import itertools
 
-
 run_env = "prod" ## test or prod
 
 if run_env == "test":
-    input = "/Users/martin.karlsson/Dropbox/Code/Advent of code/aoc2020-python/day1/test_input.txt"
+    input = "test_input.txt"
 else:
-    input = "/Users/martin.karlsson/Dropbox/Code/Advent of code/aoc2020-python/day1/day1.txt"
+    input = "day1.txt"
 
 digit_list = []
 list_counter = 0
