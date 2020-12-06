@@ -39,3 +39,5 @@ print("Part 2: " + str(traverse_full_tree(1,1)) +
                 traverse_full_tree(5,1) *
                 traverse_full_tree(7,1) *
                 traverse_full_tree(1,2)))
+
+## Completed.
