@@ -1,11 +1,20 @@
-run_env = "prod" ## test or prod
-if run_env == "test":
-    input = "aoc2020-python/day4/test.txt"
-else:
-    input = "aoc2020-python/day4/input.txt"
+def ckbyr(birth_year): return birth_year and len(birth_year) == 4 and int(birth_year) >= 1920 and int(birth_year) <= 2002
+def ckiyr(issue_year): return issue_year and len(issue_year) == 4 and int(issue_year) >= 2010 and int(issue_year) <= 2020
+def ckeyr(exp_date): return exp_date and len(exp_date) == 4 and int(exp_date) >= 2020 and int(exp_date) <= 2030
+def ckhcl(hair_color): return hair_color and str(hair_color[0]) == "#" and hair_color[1:].isalnum()
+def ckecl(eye_color): return eye_color and (eye_color == "amb" or eye_color == "blu" or eye_color == "brn" or eye_color == "gry" or eye_color == "grn" or eye_color == "hzl" or eye_color == "oth")
+def ckpid(pid): return pid and len(pid) == 9 and pid.isdigit()
+def ckrange(text_string, min, max): return text_string >= min and text_string <= max
+def ckhgt(height_string):
+    if height_string:
+        if height_string[-2:] == "in": return ckrange(int(height_string[:-2]),59,76)
+        elif height_string[-2:] == "cm": return ckrange(int(height_string[:-2]),150,193)
 
+input = "aoc2020-python/day4/input.txt"
 person = {"byr": "", "iyr": "", "eyr": "", "hgt": "", "hcl": "", "ecl": "", "pid": "", "cid": ""}
 persons = []
+correct_passports_p1 = 0
+correct_passports_p2 = 0
 
 with open(input) as blockstream:
     for stream in blockstream:
@@ -19,63 +28,9 @@ with open(input) as blockstream:
             person = {"byr": "", "iyr": "", "eyr": "", "hgt": "", "hcl": "", "ecl": "", "pid": "", "cid": ""}
 persons.append(person)
 
-def checkheight(height_string):
-    validated = False
-    if person_to_check['hgt']:
-        if person_to_check['hgt'][-2:] == "in":
-            if int(person_to_check['hgt'][:-2]) >= 59 and int(person_to_check['hgt'][:-2]) <= 76:
-                validated = True
-        elif person_to_check['hgt'][-2:] == "cm":
-            if int(person_to_check['hgt'][:-2]) >= 150 and int(person_to_check['hgt'][:-2]) <= 193:
-                validated = True
-    return validated
+for pc in persons:
+    if pc['byr'] and pc['iyr'] and pc['eyr'] and pc['hgt'] and pc['hcl'] and pc['ecl'] and pc['pid']: correct_passports_p1 += 1
+    if ckbyr(pc['byr']) and ckiyr(pc['iyr']) and ckeyr(pc['eyr']) and (ckhgt(pc['hgt'])) and ckhcl(pc['hcl']) and ckecl(pc['ecl']) and ckpid(pc['pid']): correct_passports_p2 += 1
 
-def checkhaircolor(hair_color):
-    validated = False
-    if hair_color:
-        if str(hair_color[0]) == "#":
-            if hair_color[1:].isalnum():
-                validated = True
-    return validated
-
-def checkeyecolor(eye_color):
-    validated = False
-    if eye_color:
-        if eye_color == "amb" or eye_color == "blu" or eye_color == "brn" or eye_color == "gry" or eye_color == "grn" or eye_color == "hzl" or eye_color == "oth":
-            validated = True
-    return validated
-
-def checkpid(pid):
-    validated = False
-    if pid:
-        if len(pid) == 9 and pid.isdigit():
-            validated = True
-    return validated
-
-# Part 1
-correct_passports = 0
-for person_to_check in persons:
-    if person_to_check['byr']:
-        if person_to_check['iyr']:
-            if person_to_check['eyr']:
-                if person_to_check['hgt']:
-                    if person_to_check['hcl']:
-                        if person_to_check['ecl']:
-                            if person_to_check['pid']:
-                                correct_passports += 1
-
-print("P1 Correct passports: " + str(correct_passports))
-
-# Part 2
-correct_passports = 0
-for person_to_check in persons:
-    if person_to_check['byr'] and len(person_to_check['byr']) == 4 and int(person_to_check['byr']) >= 1920 and int(person_to_check['byr']) <= 2002:
-        if person_to_check['iyr'] and len(person_to_check['iyr']) == 4 and int(person_to_check['iyr']) >= 2010 and int(person_to_check['iyr']) <= 2020:
-            if person_to_check['eyr'] and len(person_to_check['eyr']) == 4 and int(person_to_check['eyr']) >= 2020 and int(person_to_check['eyr']) <= 2030:
-                if (checkheight(person_to_check['hgt'])):
-                    if checkhaircolor(person_to_check['hcl']):
-                        if checkeyecolor(person_to_check['ecl']):
-                            if checkpid(person_to_check['pid']):
-                                correct_passports += 1
-
-print("P2 Correct passports: " + str(correct_passports))
+print("P1 Correct passports: " + str(correct_passports_p1))
+print("P2 Correct passports: " + str(correct_passports_p2))
