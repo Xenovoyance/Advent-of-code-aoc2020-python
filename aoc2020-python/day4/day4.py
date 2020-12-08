@@ -1,10 +1,10 @@
-def ckbyr(birth_year): return birth_year and len(birth_year) == 4 and int(birth_year) >= 1920 and int(birth_year) <= 2002
-def ckiyr(issue_year): return issue_year and len(issue_year) == 4 and int(issue_year) >= 2010 and int(issue_year) <= 2020
-def ckeyr(exp_date): return exp_date and len(exp_date) == 4 and int(exp_date) >= 2020 and int(exp_date) <= 2030
+def ckbyr(birth_year): return birth_year and ckrange(len(birth_year),4,4) and ckrange(birth_year, 1920, 2002)
+def ckiyr(issue_year): return issue_year and ckrange(len(issue_year),4,4) and ckrange(issue_year, 2010, 2020)
+def ckeyr(exp_date): return exp_date and ckrange(len(exp_date),4,4) and ckrange(exp_date, 2020, 2030)
 def ckhcl(hair_color): return hair_color and str(hair_color[0]) == "#" and hair_color[1:].isalnum()
 def ckecl(eye_color): return eye_color and (eye_color == "amb" or eye_color == "blu" or eye_color == "brn" or eye_color == "gry" or eye_color == "grn" or eye_color == "hzl" or eye_color == "oth")
-def ckpid(pid): return pid and len(pid) == 9 and pid.isdigit()
-def ckrange(text_string, min, max): return text_string >= min and text_string <= max
+def ckpid(pid): return pid and ckrange(len(pid),9,9) and pid.isdigit()
+def ckrange(text_string, min, max): return int(text_string) >= min and int(text_string) <= max
 def ckhgt(height_string):
     if height_string:
         if height_string[-2:] == "in": return ckrange(int(height_string[:-2]),59,76)
