@@ -1,9 +1,9 @@
 run_env = "prod" ## test or prod
 
 if run_env == "test":
-    input = "test.txt"
+    input = "aoc2020-python/day3/test.txt"
 else:
-    input = "input.txt"
+    input = "aoc2020-python/day3/input.txt"
 
 def traverse_full_tree(x,y):
     global input
